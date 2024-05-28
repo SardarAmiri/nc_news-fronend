@@ -2,7 +2,6 @@ import React from "react";
 
 import ArticleList from "./ArticleList";
 import Loading from "../components/Loading";
-
 function HomePage({ articles, articleLoading }) {
   const topThreeArticles = articles
     .sort((a, b) => a.created_at + b.created_at)

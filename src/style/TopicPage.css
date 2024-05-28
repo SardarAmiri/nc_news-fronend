@@ -1,0 +1,28 @@
+.topic-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 80vh;
+}
+.topic-container {
+  list-style-type: none;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+.topic-content {
+  width: 20rem;
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  cursor: pointer;
+  box-shadow: 1px 1px 4px 1px gray;
+  text-decoration: none;
+}
+.topic-content h4 {
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}

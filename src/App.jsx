@@ -6,6 +6,8 @@ import "./style/Loading.css";
 import "./style/HomePage.css";
 import "./style/SingleArticle.css";
 import "./style/CommendAdder.css";
+import "./style/TopicPage.css";
+import "./style/Users.css";
 import React, { useState, useEffect } from "react";
 import fetchApi from "./fetchApi";
 import LoginPage from "./pages/LoginPage";
@@ -18,6 +20,7 @@ import Navbar from "./components/Navbar";
 import Loading from "./components/Loading";
 import SingleArticlePage from "./pages/SingleArticlePage";
 import { Routes, Route } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -32,7 +35,6 @@ function App() {
   useEffect(function () {
     async function fetchArticles() {
       const res = await fetchApi().get("api/articles");
-      console.log(res.data);
       setArticles(res.data.articles);
       setArticlesLoading(false);
     }
@@ -79,7 +81,8 @@ function App() {
               path="/articles/:article_id"
               element={<SingleArticlePage users={users} />}
             />
-            <Route path="/topics/" element={<TopicPage />} />
+            <Route path="/topics" element={<TopicPage />} />
+            {/* <Route path="/articles?topic=value" element={<ArticlePage />} /> */}
           </>
         )}
       </Routes>
