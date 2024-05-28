@@ -61,6 +61,7 @@ figure .learnmore a {
   border: none;
   border-radius: 5px;
 }
+
 figure .learnmore a:hover {
   background-color: #fff;
   color: #333;

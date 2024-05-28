@@ -1,12 +1,14 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import fetchApi from "../fetchApi";
+import Loading from "../components/Loading";
 
-function LoginPage({ onLogin, setIsAuthenticated, setLoading }) {
+function LoginPage({ onLogin, setIsAuthenticated }) {
   const [users, setUsers] = useState([]);
   const [curUsername, setCurUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validUser, setValidUser] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(function () {
     async function fetchAllUsers() {
@@ -34,38 +36,45 @@ function LoginPage({ onLogin, setIsAuthenticated, setLoading }) {
   }
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            required
-            value={curUsername}
-            onChange={(e) => setCurUsername(e.target.value)}
-            onMouseDown={() => setValidUser(true)}
-          />
-          {!validUser && <p style={{ color: "red" }}>Invalid Username</p>}
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="login-btn">
-          Login
-        </button>
-      </form>
-      <div className="demo-data">
-        <p>Username : cooljmessy</p>
-        <p>Passowrd: try anything 😍</p>
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <form className="login-form" onSubmit={handleSubmit}>
+            <h2>Login</h2>
+            <div className="form-group">
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                required
+                value={curUsername}
+                onChange={(e) => setCurUsername(e.target.value)}
+                onMouseDown={() => setValidUser(true)}
+              />
+              {!validUser && <p style={{ color: "red" }}>Invalid Username</p>}
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+          </form>
+
+          <div className="demo-data">
+            <p>Username : cooljmessy</p>
+            <p>Passowrd: try anything 😍</p>
+          </div>
+        </>
+      )}
     </div>
   );
 }
