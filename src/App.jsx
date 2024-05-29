@@ -18,17 +18,18 @@ import TopicPage from "./pages/TopicPage";
 import UserPage from "./pages/UserPage";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import Loading from "./components/Loading";
 import SingleArticlePage from "./pages/SingleArticlePage";
-import Topic from "./pages/Topic";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
-  const [articleLoading, setArticlesLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [users, setUsers] = useState([]);
   const [articles, setArticles] = useState([]);
   const [topics, setTopics] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [loginLoading, setLoginLoading] = useState(true);
+  const [topicLoading, setTopicLoading] = useState(true);
 
   function handleLogin(logedInUser) {
     setUsers(logedInUser);
@@ -37,7 +38,8 @@ function App() {
     async function fetchArticles() {
       const res = await fetchApi().get("api/articles");
       setArticles(res.data.articles);
-      setArticlesLoading(false);
+      setLoginLoading(false);
+      setIsLoading(false);
     }
     fetchArticles();
   }, []);
@@ -46,7 +48,7 @@ function App() {
     async function fetchAllTopics() {
       const res = await fetchApi().get("api/topics");
       setTopics(res.data.topics);
-      setIsLoading(false);
+      setTopicLoading(false);
     }
     fetchAllTopics();
   }, []);
@@ -55,12 +57,10 @@ function App() {
       {isAuthenticated && (
         <>
           <Navbar users={users} />{" "}
-          {/* <Topic topics={topics} isLoading={isLoading} /> */}
         </>
       )}
-      {/* {loading && <Loading />} */}
+      {loginLoading && <Loading />}
       <Routes>
-        {/* {!loading} */}
         {!isAuthenticated ? (
           <Route
             path="*"
@@ -79,7 +79,6 @@ function App() {
               element={
                 <HomePage
                   articles={articles}
-                  articleLoading={articleLoading}
                   topics={topics}
                   isLoading={isLoading}
                 />
@@ -88,13 +87,7 @@ function App() {
             <Route path="/users" element={<UserPage />} />
             <Route
               path="/articles"
-              element={
-                <ArticlePage
-                  articles={articles}
-                  articleLoading={articleLoading}
-                  topics={topics}
-                />
-              }
+              element={<ArticlePage articles={articles} topics={topics} />}
             />
             <Route
               path="/articles/:article_id"
@@ -102,9 +95,10 @@ function App() {
             />
             <Route
               path="/topics"
-              element={<TopicPage topics={topics} isLoading={isLoading} />}
+              element={
+                <TopicPage topics={topics} topicLoading={topicLoading} />
+              }
             />
-            {/* <Route path="/articles?topic=value" element={<ArticlePage />} /> */}
           </>
         )}
       </Routes>

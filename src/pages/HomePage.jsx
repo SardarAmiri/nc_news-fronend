@@ -2,16 +2,16 @@ import React from "react";
 import Topic from "./Topic";
 import ArticleList from "./ArticleList";
 import Loading from "../components/Loading";
-function HomePage({ articles, articleLoading, topics, isLoading }) {
+function HomePage({ articles, topics, isLoading }) {
   const topThreeArticles = articles
     .sort((a, b) => a.created_at + b.created_at)
     .slice(0, 3);
 
   return (
     <>
-      <Topic topics={topics} isLoading={isLoading} />
+      <Topic topics={topics} />
       <section className="home-wrapper">
-        {articleLoading ? (
+        {isLoading ? (
           <Loading />
         ) : (
           <>

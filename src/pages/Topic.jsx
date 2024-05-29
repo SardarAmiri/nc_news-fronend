@@ -1,7 +1,7 @@
 import TopicItem from "./TopicItem";
 import { Link } from "react-router-dom";
 
-function Topic({ topics, isLoading }) {
+function Topic({ topics }) {
   return (
     <section className="topic-section">
       <h2>Topics</h2>

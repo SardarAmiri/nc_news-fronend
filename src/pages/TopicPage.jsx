@@ -3,10 +3,10 @@ import React from "react";
 import TopicPageItem from "./TopicPageItem";
 import Loading from "../components/Loading";
 
-function TopicPage({ topics, isLoading }) {
+function TopicPage({ topics, topicLoading }) {
   return (
     <section className="topic-page">
-      {isLoading ? (
+      {topicLoading ? (
         <Loading />
       ) : (
         <ul className="topic-container">
